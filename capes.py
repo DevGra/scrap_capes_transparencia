@@ -37,10 +37,12 @@ WebDriverWait(d_wire, 3)
 import pdb; pdb.set_trace()
 #img_cod = d_wire.execute_async_script('var ajax = new XMLHttpRequest(); ajax.open("GET", "http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=*", true); ajax.send(); ajax.onreadystatechange = function() { if (ajax.readyState == 4 && ajax.status == 200) { var data = ajax.responseText; console.log(data); return data;}}')
 img_cod = d_wire.execute_async_script()
+
 #d_wire.execute_async_script(script= "ajax.js")
 import pdb; pdb.set_trace()
 ajax_url = 'http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=*'
-codigo = '*'
+v = d_wire.execute_script('var date = new Date(); date.getTime();')
+codigo = v
 data_ajax = {'v': codigo }
 customHead = {
         "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
