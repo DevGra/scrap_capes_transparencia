@@ -28,13 +28,13 @@ pg = d_wire.get(base_url)
 WebDriverWait(pg, 2)
 link = d_wire.find_element_by_xpath('//*[@id="main"]/div[4]/div/div/div[2]/div[2]/div/div/a')
 link.click()
-#import pdb; pdb.set_trace()
+# import pdb; pdb.set_trace()
 WebDriverWait(d_wire, 6)
 print("executando o refresh.........")
 d_wire.refresh()
 print("Executou o reflesh!")
 WebDriverWait(d_wire, 3)
-import pdb; pdb.set_trace()
+import pdb;pdb.set_trace()
 #img_cod = d_wire.execute_async_script('var ajax = new XMLHttpRequest(); ajax.open("GET", "http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=*", true); ajax.send(); ajax.onreadystatechange = function() { if (ajax.readyState == 4 && ajax.status == 200) { var data = ajax.responseText; console.log(data); return data;}}')
 img_cod = d_wire.execute_async_script()
 
@@ -45,15 +45,15 @@ v = d_wire.execute_script('var date = new Date(); date.getTime();')
 codigo = v
 data_ajax = {'v': codigo }
 customHead = {
-        "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
-        "Accept-Encoding": "gzip, deflate",
-        "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.3.92766818.1572461530; _gid=GA1.3.369187979.1572461530; JSESSIONID=wdnweolwqz2M18JBFkPl_8K9r3CATwpC3nuxa7a3.idc-jboss2-ap3-p",
-        "Host": "www.portaltransparencia.gov.br",
-        "Referer": "http://www.portaltransparencia.gov.br/servidores/consulta?paginacaoSimples=true&tamanhoPagina=&offset=&direcaoOrdenacao=asc&colunasSelecionadas=detalhar%2Ctipo%2Ccpf%2Cnome%2CorgaoServidorExercicio%2CorgaoServidorLotacao%2Cmatricula%2CtipoVinculo%2Cfuncao&orgaosServidorExercicio=OR70000&tipo=2&ordenarPor=nome&direcao=asc",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
-    }
+    "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate",
+    "Connection": "keep-alive",
+    "Cookie": "_ga=GA1.3.92766818.1572461530; _gid=GA1.3.369187979.1572461530; JSESSIONID=wdnweolwqz2M18JBFkPl_8K9r3CATwpC3nuxa7a3.idc-jboss2-ap3-p",
+    "Host": "www.portaltransparencia.gov.br",
+    "Referer": "http://www.portaltransparencia.gov.br/servidores/consulta?paginacaoSimples=true&tamanhoPagina=&offset=&direcaoOrdenacao=asc&colunasSelecionadas=detalhar%2Ctipo%2Ccpf%2Cnome%2CorgaoServidorExercicio%2CorgaoServidorLotacao%2Cmatricula%2CtipoVinculo%2Cfuncao&orgaosServidorExercicio=OR70000&tipo=2&ordenarPor=nome&direcao=asc",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36",
+    "X-Requested-With": "XMLHttpRequest"
+}
 
 
 
