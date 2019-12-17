@@ -16,12 +16,12 @@ import csv
 
 base_url = 'http://transparencia.capes.gov.br/transparencia/xhtml/PesquisaEntidadeEnsino.faces'
 '''
-browser = webdriver.Chrome()
-browser.get(base_url)
-#browser.find_element_by_xpath('//*[@id="main"]/div[4]/div/div/div[2]/div[2]/div/div/a').click()
-link = browser.find_element_by_xpath('//*[@id="main"]/div[4]/div/div/div[2]/div[2]/div/div/a')
-wait = WebDriverWait(link, 5)
-link.click()
+    browser = webdriver.Chrome()
+    browser.get(base_url)
+    #browser.find_element_by_xpath('//*[@id="main"]/div[4]/div/div/div[2]/div[2]/div/div/a').click()
+    link = browser.find_element_by_xpath('//*[@id="main"]/div[4]/div/div/div[2]/div[2]/div/div/a')
+    wait = WebDriverWait(link, 5)
+    link.click()
 '''
 d_wire = wbw.Chrome()
 pg = d_wire.get(base_url)
