@@ -1,9 +1,14 @@
 from seleniumwire import webdriver
+import requests
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
+from pprint import pprint as show
+
 
 options = webdriver.ChromeOptions()
 options.add_argument("start-maximized")
@@ -14,7 +19,9 @@ driver = webdriver.Chrome(chrome_options=options)
 pg = driver.get('http://transparencia.capes.gov.br/transparencia/xhtml/PesquisaEntidadeEnsino.faces')
 link = driver.find_element_by_xpath('//*[@id="main"]/div[4]/div/div/div[2]/div[2]/div/div/a')
 link.click()
-
+sleep(3)
+#driver.refresh()
+'''
 count_ano = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.XPATH, '//*[@id="formularioPesquisa:anoConsulta"]/option'))))
 print(str(count_ano) + " items.")
 dropdown_ano = Select(driver.find_element_by_xpath('//*[@id="formularioPesquisa:anoConsulta"]'))
@@ -70,19 +77,52 @@ for op_a in dropdown_ano.options:
                 sleep(1)
         print("Outro ano...")
         a += 1
-    
+
     if a == 2:
         print("Passou o primeiro loop...")
     print("O valor de a eh: ", a)
     #import pdb; pdb.set_trace()
+'''
+code_javascript = 'var date = new Date(); \
+    return "http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=" + date.getTime();'
 
-    # dropdown_uf = Select(driver.find_element_by_xpath('//*[@id="formularioPesquisa:ufConsulta"]'))
-    # print("UFs são: ")
-    # for u in dropdown_uf.options:
-    #     print(u.get_attribute('innerHTML'))
-
-#import pdb; pdb.set_trace()
-#exit()
-#
+pg_img = 'function reloadImgCaptcha(id) { \
+	      var obj = document.getElementById(id); \
+	      var src = obj.src; \
+	      var pos = src.indexOf("?"); \
+    	if (pos >= 0) {   \
+    		src = src.substr(0, pos); \
+    	} \
+	       var date = new Date(); \
+	return obj.src = src + "?v=" + date.getTime(); \
+    }\
+    img = reloadImgCaptcha("imgCaptcha"); \
+    async function fetchAsync (img) { \
+    let response = await fetch(img); \
+    let data = await response.json(); \
+    return {data} \
+    } '
+pg_img = driver.execute_script(script=pg_img)
+import pdb; pdb.set_trace()
+cookies = driver.get_cookies()
+session = requests.Session()
 #driver.wait_for_request(path="/transparencia/xhtml", timeout=5)
-#request_ajax_img = driver.wait_for_request('http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=*')
+print("Reload....")
+sleep(3)
+#session_url = driver.command_executor._url
+#session_id = driver.session_id
+show(driver.session_id)
+import pdb; pdb.set_trace()
+cod = driver.refresh(driver.execute_script(script=code_javascript))
+
+#sleep(4)
+#driver.implicitly_wait(30)
+#webdriver.ActionChains(driver).key_down(Keys.CONTROL).send_keys("r").perform()
+print('fim do reload')
+sleep(2)
+import pdb; pdb.set_trace()
+cks = driver.get_cookies()
+req = driver.requests
+#cook = driver.get_cookie()
+import pdb; pdb.set_trace()
+request_ajax_img = driver.wait_for_request('http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v='+str(driver.execute_script(script=code_javascript)),timeout=20)
