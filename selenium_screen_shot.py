@@ -10,6 +10,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import pytesseract as ocr # para reconhecimento de captcha atraves da imagem
 from PIL import Image # para tratamento de imagem
+# dict para armazenar os dados capturados
+result = {}
 
 # --------  acessando a pagina principal --------------
 url_main = "http://transparencia.capes.gov.br/transparencia/xhtml/index.faces" #Target Url
@@ -101,6 +103,8 @@ for op_a in dropdown_ano.options:
                         x = 0
                         import pdb; pdb.set_trace()
                         for row in tabs:
+                            # dict temporario para ser adicionado ao result a cada loop
+                            dict_temp = {}
                             #print([a.text for a in row.find_elements_by_xpath('//*[@id="tabContainerEntidadeEnsinoNivel"]/ul/li['+ str(x) +']/a'])
                             # nome da moeda - BRL ou FRF ou DEM ou GBP etc.moeda = row.find_element_by_css_selector("li").text
                             moeda = row.find_element_by_css_selector("li").text
@@ -116,33 +120,25 @@ for op_a in dropdown_ano.options:
                             nivel = dados.find_element_by_tag_name('a').text
                             valor = dados.find_element_by_tag_name('span').text
                             table_total = conteudo.find_element_by_class_name('table')
+                            total = table_total.find_element_by_tag_name('span').text
+                            dict_temp = {'nivel': nivel, 'moeda': moeda, 'valor': valor, 'total': total}
+                            result.update(dict_temp)
+                            x += 1
 
-
-                            if qtd_tabs > 1:
-                                x = 1
-                                tabs.click()
-                                # se tiver mais de uma tab
-                                dados = row.find_element_by_id("tabItemEntidadeEnsinoNivel-"+x)
-
-
-
-
-                        # ------------- fim captura ----------------------------
-                        i += 1
+                    # ------------- fim captura ----------------------------
+                    i += 1
                 #--------------------------------- FIM INSTITUICAO ------------------------------------------------------
-                u += 1
-                #import pdb; pdb.set_trace()
-                sleep(1)
-        print("Outro ano...")
-        a += 1
-
-
-    if a == 2:
-        print("Passou o primeiro loop...")
-    print("O valor de a eh: ", a)
-    #import pdb; pdb.set_trace()
+            u += 1
+            #import pdb; pdb.set_trace()
+            sleep(1)
+    print("Outro ano...")
+    a += 1
 
 exit()
+if a == 2:
+    print("Passou o primeiro loop...")
+print("O valor de a eh: ", a)
+#import pdb; pdb.set_trace()
 # -------------------------- codigo de teste para tirar um print da pagina ----
 browser.save_screenshot("pg_main.tif")
 
