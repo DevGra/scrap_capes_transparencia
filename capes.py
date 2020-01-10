@@ -91,9 +91,6 @@ captcha = captcha_click.text
 print("Pare aqui")
 import pdb; pdb.set_trace()
 
-
-
-
 pg = requests.get(base_url)
 import pdb; pdb.set_trace()
 pg_face = 'http://transparencia.capes.gov.br/transparencia/xhtml/index.faces'

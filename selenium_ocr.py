@@ -4,8 +4,8 @@ import requests #For Session
 from time import sleep
 
 url_main = "http://transparencia.capes.gov.br/transparencia/xhtml/index.faces" #Target Url
-url_sec = "http://transparencia.capes.gov.br/transparencia/xhtml/PesquisaEntidadeEnsino.faces"
-captcha_image_url = "http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=" + '*' #This url is known by doing inspect element on captcha_image generated
+# url_sec = "http://transparencia.capes.gov.br/transparencia/xhtml/PesquisaEntidadeEnsino.faces"
+# captcha_image_url = "http://transparencia.capes.gov.br/transparencia/img/captcha/captcha.jpg?v=" + '*' #This url is known by doing inspect element on captcha_image generated
 
 #Store Credentials
 username = "caca"
