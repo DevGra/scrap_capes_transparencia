@@ -1,0 +1,10 @@
+*.RData*
+*.Rhistory
+*.Rprofile
+__pycache__
+*.csv
+*.xlsx
+*.xls
+*.pyc
+*.exe
+chrome_driver/*
