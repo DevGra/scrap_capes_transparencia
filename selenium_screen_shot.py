@@ -40,15 +40,14 @@ for op_a in dropdown_ano.options:
         WebDriverWait(driver, 3)
         sleep(1)
         #import pdb; pdb.set_trace()
-        #------------------------------- UF ---------------------------------------------------------------
-        #driver.wait_for_request(path = '/transparencia/xhtml', timeout = 30)
+        #------------------------------- UF ---------------------------------------------
         try:
             WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.XPATH, '//*[@id="formularioPesquisa:anoConsulta"]/option')))
             dropdown_ufs = Select(driver.find_element_by_xpath('//*[@id="formularioPesquisa:ufConsulta"]'))
         except Exception as e:
             print("Ainda não carregou os estados...", e)
 
-        u = 2
+        u = 2 # pq o primeiro item de select é o Selecione...
         for op_uf in dropdown_ufs.options:
             uf = op_uf.get_attribute('innerHTML')
             if uf != "Selecione...":
@@ -78,7 +77,7 @@ for op_a in dropdown_ano.options:
                         border = (366, 585, 615, 660) # left, up, right, bottom - selecionando a imagem
                         cropped_img = img.crop(border)# cortando apenas o tamanho do captcha
                         # import pdb; pdb.set_trace()
-                        cropped_img.save("captcha.png")# salvando a imagem
+                        cropped_img.save("captcha.png")# salvando apenas a imagem do captcha
                         sleep(2)
                         # passando o caminho de instalação do tesseract
                         ocr.pytesseract.tesseract_cmd = r'C:\Users\cgt\AppData\Local\Tesseract-OCR\tesseract.exe'
@@ -87,16 +86,15 @@ for op_a in dropdown_ano.options:
                         texto = int(texto)
                         print(texto)
                         # buscando o input para inserir o texto
-                        box_to_insert_code = browser.find_element_by_id("formularioPesquisa:validacaoImagem")
+                        input_to_insert_code = browser.find_element_by_id("formularioPesquisa:validacaoImagem")
                         # inserindo o texto no input
-                        box_to_insert_code.send_keys(texto)
+                        input_to_insert_code.send_keys(texto)
                         # enviando o form
-                        box_to_insert_code.submit()
+                        # talvez tenha que clicar no botão
+                        input_to_insert_code.submit()
 
                         # -- captura dos dados - Pagamentos por Nível de Bolsa --
-                        #ul =  browser.find_element_by_xpath('//*[@id="tabContainerEntidadeEnsinoNivel"]/ul')
                         ul =  browser.find_element_by_css_selector("nav nav-tabs")
-                        #tabs = ul.find_elements_by_xpath(".//li")
                         tabs = ul.find_elements_by_css_selector("li")
                         qtd_tabs = len(tabs)
                         print(qtd_tabs)
